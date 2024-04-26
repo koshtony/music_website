@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "build": "npx tailwindcss -i ../src/static/css/tw-input.css -o ../src/static/css/tw-output.css",
+    "watch": "npx tailwindcss -i ../src/static/css/tw-input.css -o ../src/static/css/tw-output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  },
+  "dependencies": {
+    "flowbite": "^2.3.0"
+  }
+}
