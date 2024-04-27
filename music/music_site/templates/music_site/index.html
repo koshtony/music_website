@@ -1,0 +1,91 @@
+{% extends 'music_site/base.html' %}
+
+{% load static %}
+
+{% block index %}
+
+<!-- overlay -->
+<div class="container overlay">
+
+
+<!-- home banner starts -->
+<div id="home" class="homeinfo">
+<div class="row">
+	<div class="col-sm-6 col-xs-12">
+	<div class="fronttext">
+	 	<h2 class="bgcolor  animated fadeInUpBig"><span class="glyphicon glyphicon-music"></span>Steve Rogers Kenya</h2><br>
+		<p class=" animated fadeInUp">description here</p>
+	</div>
+	</div>
+
+	<div class="col-sm-5 col-xs-12 col-sm-offset-1">
+	<div class="player">
+	<img src="{% static 'assets/images/steve.png' %}" class="graphics hidden-xs  animated fadeInRightBig"/>
+		<iframe width="100%" height="170" scrolling="no" frameborder="no" src=""></iframe>
+		</div>
+	</div>
+
+</div>	
+</div>
+<!-- home banner ends -->
+
+
+
+<!-- blockblack -->
+<div class="blockblack">
+
+<!-- About Starts -->
+
+{% include 'music_site/about.html' %}
+
+<!-- About Ends -->
+
+
+
+<!-- playlist Starts -->
+
+{% include 'music_site/playlist.html' %}
+
+<!-- #playlist Ends -->
+
+
+
+
+
+<!-- latest release starts-->
+
+{% include 'music_site/album.html' %}
+
+<!-- latest release ends-->
+
+
+
+
+
+
+
+
+
+
+<!--Blog Event Starts-->
+
+{% include 'music_site/events.html' %}
+
+<!--Blog Events Ends-->
+
+
+<!--Contact Starts-->
+{% include 'music_site/contacts.html' %}
+
+<!--Contact End-->
+
+
+
+</div>
+<!-- blockblack -->
+
+</div>
+<!-- overlay -->
+{% endblock index %}
+
+
