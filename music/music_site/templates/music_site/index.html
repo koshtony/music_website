@@ -36,58 +36,26 @@
 		</div>
 		<div class="row">
 			<div class="event__slider owl-carousel">
+
+				{% for event in events %}
+				{{ event}}
 				<div class="col-lg-4">
 					<div class="event__item">
-						<div class="event__item__pic set-bg" data-setbg="img/events/event-1.jpg">
+						<div class="event__item__pic set-bg" data-setbg="{{event.image.url}}">
 							<div class="tag-date">
-								<span>Dec 15, 2019</span>
+								<span>{{event.dates}}</span>
 							</div>
 						</div>
 						<div class="event__item__text">
-							<h4>David Guetta Miami Ultra</h4>
-							<p><i class="fa fa-map-marker"></i> Funkhaus Berlin, Berlin, Germany</p>
+							<h4>{{event.title}}</h4>
+							<span>{{event.details}}</span>
+							<p><i class="fa fa-map-marker"></i> {{event.location}}</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4">
-					<div class="event__item">
-						<div class="event__item__pic set-bg" data-setbg="img/events/event-2.jpg">
-							<div class="tag-date">
-								<span>Dec 15, 2019</span>
-							</div>
-						</div>
-						<div class="event__item__text">
-							<h4>David Guetta Miami Ultra</h4>
-							<p><i class="fa fa-map-marker"></i> Funkhaus Berlin, Berlin, Germany</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="event__item">
-						<div class="event__item__pic set-bg" data-setbg="img/events/event-3.jpg">
-							<div class="tag-date">
-								<span>Dec 15, 2019</span>
-							</div>
-						</div>
-						<div class="event__item__text">
-							<h4>David Guetta Miami Ultra</h4>
-							<p><i class="fa fa-map-marker"></i> Funkhaus Berlin, Berlin, Germany</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="event__item">
-						<div class="event__item__pic set-bg" data-setbg="img/events/event-2.jpg">
-							<div class="tag-date">
-								<span>Dec 15, 2019</span>
-							</div>
-						</div>
-						<div class="event__item__text">
-							<h4>David Guetta Miami Ultra</h4>
-							<p><i class="fa fa-map-marker"></i> Funkhaus Berlin, Berlin, Germany</p>
-						</div>
-					</div>
-				</div>
+				
+				{% endfor %}
+				
 			</div>
 		</div>
 	</div>
@@ -95,29 +63,7 @@
 <!-- Event Section End -->
 
 <!-- About Section Begin -->
-<section class="about spad">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6">
-				<div class="about__pic">
-					<img src="img/about/about.png" alt="">
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="about__text">
-					<div class="section-title">
-						<h2>DJ Alexandra Rud</h2>
-						<h1>About me</h1>
-					</div>
-					<p>DJ Rainflow knows how to move your mind, body and soul by delivering tracks that stand out
-						from the norm. As if this impressive succession of high impact, floor-filling bombs wasn’t
-						enough to sustain.</p>
-					<a href="#" class="primary-btn">CONTACT ME</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
+
 <!-- About Section End -->
 
 <!-- Services Section Begin -->
@@ -131,34 +77,16 @@
 			</div>
 			<div class="col-lg-6 p-0">
 				<div class="row services__list">
+					{% for ec in events_category %}
 					<div class="col-lg-6 p-0 order-lg-1 col-md-6 order-md-1">
 						<div class="service__item deep-bg">
-							<img src="img/services/service-1.png" alt="">
-							<h4>Wedding</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+							
+							<h4>{{ec.name}}</h4>
+							<p>{{ec.description}}</p>
 						</div>
 					</div>
-					<div class="col-lg-6 p-0 order-lg-2 col-md-6 order-md-2">
-						<div class="service__item">
-							<img src="img/services/service-2.png" alt="">
-							<h4>Clubs and bar</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
-						</div>
-					</div>
-					<div class="col-lg-6 p-0 order-lg-4 col-md-6 order-md-4">
-						<div class="service__item deep-bg">
-							<img src="img/services/service-4.png" alt="">
-							<h4>DJ lessons</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
-						</div>
-					</div>
-					<div class="col-lg-6 p-0 order-lg-3 col-md-6 order-md-3">
-						<div class="service__item">
-							<img src="img/services/service-3.png" alt="">
-							<h4>Corporate events</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
-						</div>
-					</div>
+					{% endfor %}
+					
 				</div>
 			</div>
 		</div>
