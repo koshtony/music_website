@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import Home,Events,About,EventCategory,Contacts,Items
+from .models import Home,Events,About,EventCategory,Contacts,Items,Concerts,Blog
 from .youtube_api import get_youtube_videos
 import json
 
@@ -13,13 +13,24 @@ import json
 def index(request):
     
     latest = get_youtube_videos()[-2]
+  
+    
     details = Home.objects.all()
     events = Events.objects.all().order_by('dates')[:5]
     events_category = EventCategory.objects.all()
     
+    if len(Concerts.objects.all())>0:
+        
+        concert=Concerts.objects.latest('-pk')
+        print(concert)
+        
+    else:
+        
+        concert=Concerts.objects.all()
     
     
-    contxt = {"detail":details[0], "events":events, "events_category":events_category,"latest":latest}
+    print(concert)
+    contxt = {"detail":details[0], "events":events, "events_category":events_category,"latest":latest,"concert":concert}
 
     return render(request,'music_site/index.html',contxt)
 
@@ -52,6 +63,32 @@ def youtube_videos(request):
     contxt = {"videos":get_youtube_videos(),"latest":latest}
     
     return render(request,'music_site/youtube_videos.html',contxt)
+
+
+def concerts_page(request):
+    
+    concerts = Concerts.objects.all()
+    
+    contxt = {"concerts":concerts}
+    
+    return render(request,'music_site/concerts.html',contxt)
+    
+
+def blog_page(request):
+    
+    if len(Blog.objects.all())>0:
+        
+        latest = Blog.objects.latest('pk')
+    
+    else:
+        
+        latest = Blog.objects.all()
+        
+    blogs = Blog.objects.all().order_by('-pk')
+    
+    contxt = {"blogs":blogs,"latest":latest}
+    
+    return render(request,'music_site/blog.html',contxt)
 
 def contacts_page(request):
     

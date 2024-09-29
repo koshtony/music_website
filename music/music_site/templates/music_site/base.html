@@ -47,14 +47,10 @@
                                 <li class="active"><a href="{% url 'site-index' %}">Home</a></li>
                                 <li><a href="{% url 'site-about' %}">About</a></li>
                               
-                                <li><a href="./tours.html">Concerts</a></li>
+                                <li><a href="{% url 'site-concert-page' %}">Concerts</a></li>
                                 <li><a href="{% url 'site-youtube-videos' %}">Videos</a></li>
-                                <li><a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="./about.html">About</a></li>
-                                        <li><a href="./blog.html">Blog</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
-                                    </ul>
+                                <li><a href="{% url 'site-blog-page' %}">Blog</a>
+                                    
                                 </li>
                                 <li><a href="{% url 'site-contact-page' %}">Contact</a></li>
                                 <li><a href="{% url 'site-store-page' %}">Store</a></li>

@@ -70,8 +70,8 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-6 p-0">
-				<div class="services__left set-bg" data-setbg="img/services/service-left.jpg">
-					<a href="https://www.youtube.com/watch?v=JGwWNGJdvx8" class="play-btn video-popup"><i class="fa fa-play"></i></a>
+				<div class="services__left set-bg" data-setbg="{{latest.thumbnails}}">
+					<a href="https://www.youtube.com/watch?v={{latest.videoId}}" class="play-btn video-popup"><i class="fa fa-play"></i></a>
 				</div>
 			</div>
 			<div class="col-lg-6 p-0">
@@ -102,13 +102,14 @@
 <!-- Youtube Section End -->
 
 <!-- Countdown Section Begin -->
-<section class="countdown spad set-bg" data-setbg="img/countdown-bg.jpg">
+
+<section class="countdown spad set-bg" data-setbg="{{concert.poster.url}}">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="countdown__text">
-					<h1>Tomorrowland 2020</h1>
-					<h4>Music festival start in</h4>
+					<h1>{{concert.location}}</h1>
+					<h4>{{concert.name}}</h4>
 				</div>
 				<div class="countdown__timer" id="countdown-time">
 					<div class="countdown__item">
@@ -129,7 +130,7 @@
 					</div>
 				</div>
 				<div class="buy__tickets">
-					<a href="#" class="primary-btn">Buy tickets</a>
+					<a href="{{concert.tickets_link}}" class="primary-btn">Buy tickets</a>
 				</div>
 			</div>
 		</div>

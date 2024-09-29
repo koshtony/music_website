@@ -1,0 +1,114 @@
+{% extends 'music_site/base.html' %}
+
+{% block home %}
+
+<section class="blog spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="section-title">
+                    <h2>Latest posts</h2>
+                    <h1>Music blog</h1>
+                </div>
+                <div class="blog__large">
+                    <div class="blog__large__pic set-bg" data-setbg="img/blog/large-item.jpg">
+                        <a href="#"><i class="fa fa-share-alt"></i></a>
+                    </div>
+                    <div class="blog__large__text">
+                        <span>{{latest.title}}</span>
+                        
+                        <p>{{latest.description}}
+                        </p>
+                        <div class="blog__large__widget">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <ul>
+                                        <li>By <span>{{latest.author.username}}</span></li>
+                                        <li>{{latest.date}}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for blog in blogs %}
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                <img src="img/blog/blog-1.jpg" alt="">
+                            </div>
+                            <div class="blog__item__text">
+                                <span>{{blog.title}}</span>
+                                <h5>{{blog.sub_title}}</h5>
+                                <ul>
+                                    <li>By <span>{{blog.author.username}}</span></li>
+                                    <li>{{blog.updated_on}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                   
+                    <div class="col-lg-12">
+                        <div class="pagination__links blog__pagination">
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">Next</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog__sidebar">
+                    <div class="blog__sidebar__item">
+                        <div class="blog__sidebar__title">
+                            <h4>Subscribe newsletter</h4>
+                        </div>
+                        <p>Coming Soon </p>
+                        <form action="#">
+                            <input type="text" placeholder="Name">
+                            <input type="text" placeholder="Email">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <div class="blog__sidebar__title">
+                            <h4>Social media</h4>
+                        </div>
+                        <div class="blog__sidebar__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-dribbble"></i></a>
+                        </div>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <div class="blog__sidebar__title">
+                            <h4>Recent posts</h4>
+                        </div>
+                        <a href="#" class="recent__item">
+                            <div class="recent__item__pic">
+                                <img src="{{latest.blog_image}}" alt="">
+                            </div>
+                            <div class="recent__item__text">
+                                <h6>{{latest.title}}</h6>
+                                <span>{{latest.updated_on}}</span>
+                            </div>
+                        </a>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock home %}
+{% block footer %}
+{% endblock %}

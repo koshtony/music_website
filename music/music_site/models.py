@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Home(models.Model):
@@ -30,6 +31,23 @@ class Events(models.Model):
     image = models.ImageField(default="default.jpg",upload_to="events_images")
     
     
+class Concerts(models.Model):
+    
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    location  = models.TextField()
+
+    tickets_link = models.TextField()
+    concert_cost = models.FloatField(null=True,blank=True)
+    concert_returns = models.FloatField(null=True,blank=True)
+    poster = models.ImageField(default="default.jpg",upload_to="concert_images")
+    date = models.DateTimeField()
+    
+    
+    def __str__(self):
+        
+        return self.title
+    
 class Contacts(models.Model):
     
     name = models.CharField(max_length=200)
@@ -40,6 +58,22 @@ class Contacts(models.Model):
     youtube_link = models.URLField(max_length=200)
     location_link = models.TextField(null=True, blank=True)
     address = models.TextField()
+    
+class Blog(models.Model):
+    
+    title = models.CharField(max_length=200)
+    sub_title = models.CharField(max_length=200)
+    author = models.ForeignKey(User,on_delete=models.CASCADE)
+    content = models.TextField()
+    updated_on = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateTimeField(auto_now=True)
+    blog_image = models.ImageField(default="default.jpg",upload_to="blog_images")
+    
+    
+    def __str__(self):
+        return self.title
+    
+    
     
 
 class item_attributes(models.Model):

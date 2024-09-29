@@ -1,0 +1,54 @@
+{% extends 'music_site/base.html' %}
+
+{% block home %}
+
+<section class="tours spad">
+    <div class="container">
+        <div class="row">
+
+            {% for concert in concerts %}
+            <div class="col-lg-6 order-lg-1">
+                <div class="tours__item__text">
+                    <h2>{{concert.title}}</h2>
+                    <div class="tours__text__widget">
+                        <ul>
+                            <li>
+                                <i class="fa fa-clock-o"></i>
+                                <span>{{concert.date}}</span>
+                                
+                            </li>
+                            <li>
+                                <i class="fa fa-map-marker"></i>
+                                {{concert.location}}
+                            </li>
+                        </ul>
+                        <!--
+                        <div class="price">$ 35.00</div>
+                        -->
+                    </div>
+                    <div class="tours__text__desc">
+                        <p>{{concert.description}}</p>
+                    </div>
+                    <a href="{{concert.tickets_link}}" class="primary-btn border-btn">Buy tickets</a>
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-2">
+                <div class="tours__item__pic">
+                    <img src="{{concert.poster.url}}" alt="">
+                </div>
+            </div>
+
+            {% endfor %}
+          
+            
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock home %}
+
+{% block footer %}
+
+{% endblock footer %}
