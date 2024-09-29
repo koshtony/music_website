@@ -6,3 +6,4 @@ admin.site.register(Home);
 admin.site.register(About)
 admin.site.register(EventCategory);
 admin.site.register(Events)
+admin.site.register(Contacts);
