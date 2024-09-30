@@ -28,11 +28,30 @@
             </div>
            {% endfor %}
             <div class="col-lg-12">
+
+              
                 <div class="pagination__links">
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">Next</a>
+                    {% if items.has_other_pages %}
+                    <a href="?page={{items.previous_page_number}}">&laquo;</a>
+
+                    {% else %}
+                    <a></a>
+
+                    {% endif %}
+
+                    {% for i in items.paginator.page_range %}
+                       {% if items.number == i %}
+                        <a class="active" href="?page={{ i }}">{{ i }}</a>
+                       {% else %}
+                        <a href="?page={{ i }}">{{ i }}</a>
+                       {% endif %}
+                    {% endfor %}
+
+                    {% if items.has_next %}
+                    <a href="?page={{items.next_page_number}}">&raquo;</a>
+                    {% else %}
+                    <a></>
+                    {% endif %}
                 </div>
             </div>
         </div>
