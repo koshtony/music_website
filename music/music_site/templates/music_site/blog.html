@@ -11,7 +11,7 @@
                     <h1>Music blog</h1>
                 </div>
                 <div class="blog__large">
-                    <div class="blog__large__pic set-bg" data-setbg="img/blog/large-item.jpg">
+                    <div class="blog__large__pic set-bg" data-setbg="{{latest.blog_image.url}}">
                         <a href="#"><i class="fa fa-share-alt"></i></a>
                     </div>
                     <div class="blog__large__text">
@@ -39,7 +39,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="blog__item">
                             <div class="blog__item__pic">
-                                <img src="img/blog/blog-1.jpg" alt="">
+                                <img src="{{blog.blog_image.url}}" alt="">
                             </div>
                             <div class="blog__item__text">
                                 <span>{{blog.title}}</span>
@@ -56,10 +56,27 @@
                    
                     <div class="col-lg-12">
                         <div class="pagination__links blog__pagination">
-                            <a href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">Next</a>
+                            {% if blogs.has_other_pages %}
+                            <a href="?page={{blogs.previous_page_number}}">&laquo;</a>
+        
+                            {% else %}
+                            <a></a>
+        
+                            {% endif %}
+        
+                            {% for i in blogs.paginator.page_range %}
+                               {% if blogs.number == i %}
+                                <a class="active" href="?page={{ i }}">{{ i }}</a>
+                               {% else %}
+                                <a href="?page={{ i }}">{{ i }}</a>
+                               {% endif %}
+                            {% endfor %}
+        
+                            {% if items.has_next %}
+                            <a href="?page={{blogs.next_page_number}}">&raquo;</a>
+                            {% else %}
+                            <a></>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

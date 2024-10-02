@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 from .models import Home,Events,About,EventCategory,Contacts,Items,Concerts,Blog
 from .youtube_api import get_youtube_videos
 import json
@@ -22,14 +23,14 @@ def index(request):
     if len(Concerts.objects.all())>0:
         
         concert=Concerts.objects.latest('-pk')
-        print(concert)
+    
         
     else:
         
         concert=Concerts.objects.all()
     
     
-    print(concert)
+  
     contxt = {"detail":details[0], "events":events, "events_category":events_category,"latest":latest,"concert":concert}
 
     return render(request,'music_site/index.html',contxt)
@@ -84,7 +85,26 @@ def blog_page(request):
         
         latest = Blog.objects.all()
         
-    blogs = Blog.objects.all().order_by('-pk')
+    blog_list = Blog.objects.all().order_by('-pk')
+    
+    page = request.GET.get('page',1)
+    
+    paginator = Paginator(blog_list,6)
+    
+    try:
+        blogs = paginator.get_page(page)
+        
+    except PageNotAnInteger:
+        
+        blogs = paginator.page(1)
+        
+    except EmptyPage:
+        
+        blogs = paginator.page(paginator.num_pages)
+        
+        
+    
+    
     
     contxt = {"blogs":blogs,"latest":latest}
     
@@ -105,7 +125,27 @@ def contacts_page(request):
 
 def store_page(request):
     
-    items = Items.objects.all()
+    item_list = Items.objects.all()
+    
+    page = request.GET.get('page',1)
+    
+    paginator = Paginator(item_list, 6)
+    
+    try:
+        
+        items = paginator.get_page(page)
+        
+    except PageNotAnInteger:
+        
+        items = paginator.page(1)
+        
+    except EmptyPage:
+        
+        items = paginator.page(paginator.num_pages)
+        
+    
+    
+    
     
     contxt = {"items":items}
     
