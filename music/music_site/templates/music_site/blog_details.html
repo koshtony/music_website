@@ -5,6 +5,20 @@
 
 {% block home %}
 
+<style>
+    .my-indicator{
+        display:none;
+    }
+    .htmx-request .my-indicator{
+        display:inline;
+    }
+    .htmx-request.my-indicator{
+        display:inline;
+    }
+
+</style>
+<br>
+<br>
 <section class="blog-details spad">
     <div class="container">
         <div class="row">
@@ -75,29 +89,76 @@
                         <div class="blog__details__form__title">
                             <h4>Leave a comment</h4>
                         </div>
-                        <form method="post" hx-post="{% url 'site-add-comments' blog.pk %}" hx-target="#comments">
+                        <form method="post" hx-post="{% url 'site-add-comments' blog.pk %}" hx-target="#comments" hx-indicator="#commentSpinner">
 
                             {% csrf_token %}
                             
                             <textarea placeholder="Comment" name="comment" row="1"></textarea>
-                            <button type="submit" class="site-btn">Comment</button>
+                            <button type="submit" class="site-btn btn btn-outline">Comment
+                                <div class="spinner-border text-primary my-indicator" role="status" id="commentSpinner">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                            </button>
                         </form>
+
+                        <div>
+
+                        </div>
                     </div>
-                    
+                    <section style="background-color: grey; height:400px; overflow-y: scroll;" id="comments">
+                        <div class="container my-5 py-5">
+                          <div class="row d-flex justify-content-center">
+                            <div class="col-md-12 col-lg-10">
+                              <div class="card text-body">
+                                {% for comment in comments %}
+                                <div class="card-body p-4">
+                               
+                      
+                                  <div class="d-flex flex-start">
+                                    <img class="rounded-circle shadow-1-strong me-3"
+                                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
+                                      height="60" />
+                                    <div>
+                                      <h6 class="fw-bold mb-1">{{comment.sent_by.username}}</h6>
+                                      
+                                      <p class="mb-0">
+                                       {{comment.comment}}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                      
+                                <hr class="my-0" />
+
+                                {% endfor %}
+                      
+                              
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </section>  
                 </div>
             </div>
+            
+            <br>
+            <br>
             <div class="col-lg-4">
                 <div class="blog__sidebar">
                     <div class="blog__sidebar__item">
                         <div class="blog__sidebar__title">
-                            <h4>Subscribe newsletter</h4>
+                            <h4>Login</h4>
                         </div>
                         
                         <form action="#">
-                            <input type="text" placeholder="Name">
-                            <input type="text" placeholder="Email">
-                            <button type="submit" class="site-btn">Subscribe</button>
+                            <input type="text" placeholder="Username">
+                            <input type="password" placeholder="Password">
+                            <button type="submit" class="site-btn">Login</button>
+
+
                         </form>
+
+                        <a href=""> Not Registered? Register Here</a>
                     </div>
                     <div class="blog__sidebar__item">
                         <div class="blog__sidebar__title">

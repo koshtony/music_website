@@ -137,26 +137,30 @@ def blog_details(request,pk):
 
 def add_comments(request,pk):
     
-    comment = request.POST.get("comment")
-    blog = Blog.objects.get(pk=pk)
-    
-    comment = Comments(
-        comment = comment,
-        blog=blog,
-        sent_by = request.user,
-        category = "public"
+    if request.user.is_authenticated:
+        comment = request.POST.get("comment")
+        blog = Blog.objects.get(pk=pk)
         
-    )
-    
-    comment.save()
-    
-    comments = Comments.objects.all().order_by('-pk')
-    
-    contxt = {"comments":comments}
-    
-    
-    
-    return render(request,'music_site/comments.html',contxt)
+        comment = Comments(
+            comment = comment,
+            blog=blog,
+            sent_by = request.user,
+            category = "public"
+            
+        )
+        
+        comment.save()
+        
+        comments = Comments.objects.all().order_by('-pk')
+        
+        contxt = {"comments":comments}
+        
+        
+        
+        return render(request,'music_site/comments.html',contxt)
+    else:
+        
+        return JsonResponse('<strong style="color:red">Login first</strong>',safe=False)
 
 def add_reply(request,pk):
     
