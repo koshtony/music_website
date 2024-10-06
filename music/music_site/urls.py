@@ -1,6 +1,7 @@
 from django.urls import path 
 from . import views 
-from .views import index,about,youtube_videos,get_contacts,contacts_page,store_page,concerts_page,blog_page
+from .views import index,about,youtube_videos,get_contacts,contacts_page,\
+    store_page,concerts_page,blog_page,blog_details,add_comments
 
 urlpatterns = [
 
@@ -12,6 +13,8 @@ urlpatterns = [
     path('store_page',views.store_page,name="site-store-page"),
     path('concerts_page',views.concerts_page,name="site-concert-page"),
     path('blog_page',views.blog_page,name="site-blog-page"),
+    path('blog_details/<int:pk>',views.blog_details,name="site-blog-details"),
+    path('add_comments/<int:pk>',views.add_comments,name="site-add-comments"),
          
     
 ]

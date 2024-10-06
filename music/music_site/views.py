@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
-from .models import Home,Events,About,EventCategory,Contacts,Items,Concerts,Blog
+from .models import Home,Events,About,EventCategory,Contacts,Items,Concerts,Blog,Comments
 from .youtube_api import get_youtube_videos
 import json
 
@@ -29,9 +29,9 @@ def index(request):
         
         concert=Concerts.objects.all()
     
-    
+    contact = Contacts.objects.all()[0]
   
-    contxt = {"detail":details[0], "events":events, "events_category":events_category,"latest":latest,"concert":concert}
+    contxt = {"detail":details[0], "events":events, "events_category":events_category,"latest":latest,"concert":concert,"contact":contact}
 
     return render(request,'music_site/index.html',contxt)
 
@@ -52,7 +52,9 @@ def about(request):
     
     events_category = EventCategory.objects.all()
     
-    contxt = {'about':abouts,"events_category":events_category}
+    contact = Contacts.objects.all()[0]
+    
+    contxt = {'about':abouts,"events_category":events_category,"contact":contact}
     
     return render(request,'music_site/about.html',contxt)
 
@@ -60,8 +62,10 @@ def youtube_videos(request):
     
     latest = get_youtube_videos()[-2]
     
-    print(get_youtube_videos())
-    contxt = {"videos":get_youtube_videos(),"latest":latest}
+    contact = Contacts.objects.all()[0]
+    
+  
+    contxt = {"videos":get_youtube_videos(),"latest":latest,"contact":contact}	
     
     return render(request,'music_site/youtube_videos.html',contxt)
 
@@ -101,14 +105,63 @@ def blog_page(request):
     except EmptyPage:
         
         blogs = paginator.page(paginator.num_pages)
-        
-        
     
+    contact = Contacts.objects.all()[0]
     
-    
-    contxt = {"blogs":blogs,"latest":latest}
+    contxt = {"blogs":blogs,"latest":latest,"contact":contact}
     
     return render(request,'music_site/blog.html',contxt)
+
+
+def blog_details(request,pk):
+    
+    blog = Blog.objects.get(pk=pk)
+    
+    comments = Comments.objects.filter(blog=blog).order_by('-pk')
+    
+    contact = Contacts.objects.all()[0]
+    
+    
+    if len(Blog.objects.all())>2:
+        
+        latest = Blog.objects.all().order('-pk')[:2]
+        
+    else:
+        
+        latest = Blog.objects.all()
+    
+    contxt = {"blog":blog,"latest":latest,"contact":contact,"comments":comments}	
+    
+    return render(request,'music_site/blog_details.html',contxt)
+
+
+def add_comments(request,pk):
+    
+    comment = request.POST.get("comment")
+    blog = Blog.objects.get(pk=pk)
+    
+    comment = Comments(
+        comment = comment,
+        blog=blog,
+        sent_by = request.user,
+        category = "public"
+        
+    )
+    
+    comment.save()
+    
+    comments = Comments.objects.all().order_by('-pk')
+    
+    contxt = {"comments":comments}
+    
+    
+    
+    return render(request,'music_site/comments.html',contxt)
+
+def add_reply(request,pk):
+    
+    pass
+        
 
 def contacts_page(request):
     

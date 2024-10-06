@@ -73,6 +73,22 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
     
+class Comments(models.Model):
+    
+    comment = models.TextField()
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    sent_by = models.ForeignKey(User, related_name="comments", on_delete=models.CASCADE, blank=True, null=True)
+    category = models.CharField(max_length=200,default="")
+    sent_on = models.DateField(auto_now_add=True)
+    
+    
+class Replies(models.Model):
+    
+    reply = models.TextField()
+    comment = models.ForeignKey(Comments, on_delete=models.CASCADE)
+    replied_by = models.ForeignKey(User, related_name="replies", on_delete=models.CASCADE, blank=True, null=True)
+    replied_on = models.DateField(auto_now_add=True)
+    
     
     
 
