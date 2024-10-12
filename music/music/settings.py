@@ -115,6 +115,13 @@ USE_I18N = True
 
 USE_TZ = True
 
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_NAME = "sessioninfos"
+CSRF_TRUSTED_ORIGINS = ['https://steverogerskenya.com','https://*.127.0.0.1']
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
