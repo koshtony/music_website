@@ -1,11 +1,103 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
+from django.contrib.auth import authenticate,login
+from django.contrib.auth.decorators  import login_required
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth.models import User
+from django.contrib.auth import update_session_auth_hash
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 from .models import Home,Events,About,EventCategory,Contacts,Items,Concerts,Blog,Comments
 from .youtube_api import get_youtube_videos
 import json
 
 # Create your views here.
+'''
+   user management
+'''
+
+def register_page(request):
+    
+    
+    return render(request,'music_site/register_page.html')
+
+def register(request):
+    
+    username = request.POST.get('username')
+    email = request.POST.get('email')
+    password = request.POST.get('password')
+    password2 = request.POST.get('password2')
+    
+    print(password)
+    
+    msg = ""
+    
+    if password == password2:
+        
+        if User.objects.filter(username=username).exists():
+            
+            msg += "<strong style='color:red'>username already exists </strong>"
+            
+        elif User.objects.filter(email=email).exists():
+            
+            msg+= "<strong style='color:red'>username already exists </strong>"
+        
+        else:
+            
+            user = User(
+            username=username,
+            email=email,
+            password=password
+            )
+
+            user.save()
+            
+            msg+= "<strong style='color:green'>user created successfully </strong>"
+            
+    else:
+        
+        msg+= "<strong style='color:red'>Password does not match </strong>"
+        
+        
+    return HttpResponse(msg)
+
+
+def login_page(request):
+    
+    
+    username = request.POST.get('username')
+    password = request.POST.get('password') 
+    
+    user = authenticate(username=username,password=password)
+    
+    msg = ''
+    if user is not None:
+            
+            if user.is_active:
+                
+                login(request,user)
+                msg+='<strong color="green"> Login successfull, Login status updated</strong>'
+                
+                
+                
+            else:
+                
+                msg += '<strong color="red"> This user is Inactive contact admin </strong>' 
+    else:
+            
+            msg+='<strong style="color:red"> Invlaid username or password </strong>'  
+        
+    return HttpResponse(msg)
+    
+    
+        
+        
+            
+            
+    
+
+
+    
+    
 
 
 '''
@@ -137,30 +229,26 @@ def blog_details(request,pk):
 
 def add_comments(request,pk):
     
-    if request.user.is_authenticated:
-        comment = request.POST.get("comment")
-        blog = Blog.objects.get(pk=pk)
+    comment = request.POST.get("comment")
+    blog = Blog.objects.get(pk=pk)
+    
+    comment = Comments(
+        comment = comment,
+        blog=blog,
+        sent_by = request.user,
+        category = "public"
         
-        comment = Comments(
-            comment = comment,
-            blog=blog,
-            sent_by = request.user,
-            category = "public"
-            
-        )
-        
-        comment.save()
-        
-        comments = Comments.objects.all().order_by('-pk')
-        
-        contxt = {"comments":comments}
-        
-        
-        
-        return render(request,'music_site/comments.html',contxt)
-    else:
-        
-        return JsonResponse('<strong style="color:red">Login first</strong>',safe=False)
+    )
+    
+    comment.save()
+    
+    comments = Comments.objects.all().order_by('-pk')
+    
+    contxt = {"comments":comments}
+    
+    
+    
+    return render(request,'music_site/comments.html',contxt)
 
 def add_reply(request,pk):
     

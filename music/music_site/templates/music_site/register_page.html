@@ -1,0 +1,35 @@
+<style>
+    .my-indicator{
+        display:none;
+    }
+    .htmx-request .my-indicator{
+        display:inline;
+    }
+    .htmx-request.my-indicator{
+        display:inline;
+    }
+
+</style>
+<div class="blog__sidebar__title">
+    <h4>Register</h4>
+</div>
+
+<form method="post" hx-post="{% url 'site-register' %}" hx-target="#regResponse" hx-indicator="#regSpinner">
+    
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Username">
+    <input type="email" name="email" placeholder="Email">
+    <input type="password" name="password" placeholder="Password">
+    <input type="password" name="password2" placeholder="Confirm Password">
+    <button type="submit" class="site-btn">Register
+
+        <div class="spinner-border text-primary my-indicator" role="status" id="regSpinner">
+            <span class="sr-only">Loading...</span>
+          </div>
+
+    </button>
+
+    <div id="regResponse">
+    </div>
+
+</form>

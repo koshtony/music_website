@@ -1,7 +1,7 @@
 from django.urls import path 
 from . import views 
 from .views import index,about,youtube_videos,get_contacts,contacts_page,\
-    store_page,concerts_page,blog_page,blog_details,add_comments
+    store_page,concerts_page,blog_page,blog_details,add_comments,register_page,login_page,register
 
 urlpatterns = [
 
@@ -15,6 +15,9 @@ urlpatterns = [
     path('blog_page',views.blog_page,name="site-blog-page"),
     path('blog_details/<int:pk>',views.blog_details,name="site-blog-details"),
     path('add_comments/<int:pk>',views.add_comments,name="site-add-comments"),
+    path('register_page/',views.register_page,name="site-register-page"),
+    path('register/',views.register,name="site-register"),
+    path('login_page/',views.login_page,name="site-login-page"),
          
     
 ]
