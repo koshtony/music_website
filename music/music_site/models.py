@@ -8,11 +8,21 @@ class Home(models.Model):
     image = models.ImageField(default="default.jpg",upload_to="home_images")
     content = models.TextField()
     
+    class Meta:
+        
+        
+        verbose_name_plural = "Home Page Content"
+    
 class About(models.Model):
     title = models.CharField(max_length=200)
     sub_title = models.CharField(max_length=200)
     content = models.TextField()
     about_image = models.ImageField(default="default.jpg",upload_to="about_images")
+    
+    class Meta:
+        
+        
+        verbose_name_plural = "About"
     
     
 class EventCategory(models.Model):
@@ -20,6 +30,11 @@ class EventCategory(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
     image = models.ImageField(default="default.jpg",upload_to="events_category_images") 
+    
+    class Meta:
+        
+        verbose_name_plural = "Event Categories"
+        
    
     
 class Events(models.Model):
@@ -29,6 +44,11 @@ class Events(models.Model):
     location = models.CharField(max_length=200,default="")
     dates = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(default="default.jpg",upload_to="events_images")
+    
+    class Meta:
+        
+        
+        verbose_name_plural = "Events"
     
     
 class Concerts(models.Model):
@@ -48,6 +68,10 @@ class Concerts(models.Model):
         
         return self.title
     
+    class Meta:
+        
+        
+        verbose_name_plural = "Concerts"
 class Contacts(models.Model):
     
     name = models.CharField(max_length=200)
@@ -58,6 +82,11 @@ class Contacts(models.Model):
     youtube_link = models.URLField(max_length=200)
     location_link = models.TextField(null=True, blank=True)
     address = models.TextField()
+    
+    class Meta:
+        
+        
+        verbose_name_plural = "Contacts Details"
     
 class Blog(models.Model):
     
@@ -73,6 +102,10 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
     
+    class Meta:
+        
+        
+        verbose_name_plural = "Blog Content"
 class Comments(models.Model):
     
     comment = models.TextField()
@@ -99,6 +132,14 @@ class item_attributes(models.Model):
     cost = models.FloatField()
     price = models.FloatField()
     status = models.CharField(max_length=200,choices=(('in-stock', 'in-stock'),('low', 'low'),('sold-out', 'sold-out')))
+    
+    class Meta:
+        
+        
+        verbose_name_plural = "Items Atrributes"
+        
+    def __str__(self):
+        return self.attribute
 class Items(models.Model):
     
     item_name = models.CharField(max_length=200)
@@ -111,6 +152,12 @@ class Items(models.Model):
     def __str__(self):
         
         return self.item_name
+    
+    
+    class Meta:
+        
+        
+        verbose_name_plural = "Items Details"
     
     
 
