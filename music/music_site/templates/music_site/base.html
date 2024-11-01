@@ -57,6 +57,7 @@
                                 <li><a href="{% url 'site-contact-page' %}">Contact</a></li>
                                 <li><a href="{% url 'site-store-page' %}">Store</a></li>
                                 <li><a href="/admin">Manage</a></li>
+                                
                             </ul>
                         </nav>
                         <div class="header__right__social">
@@ -130,7 +131,11 @@
 
     {% endblock footer %}
     <!-- Footer Section End -->
-    
+    <script>
+
+        document.cookie = "expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
+        
+    </script>
     <!-- Js Plugins -->
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
