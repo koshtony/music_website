@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block home %}
-
+<script type="text/javascript" src="https://app.termly.io/resource-blocker/cf041e97-0966-4cad-ab36-2818d66c8cd1?autoBlock=on"></script>
 <section class="hero spad set-bg" data-setbg="{{detail.image.url}}">
 	<div class="container">
 		<div class="row">
@@ -146,7 +146,7 @@
 	return response.json();
   })
   .then(data => {
-	console.log('Data received:', data);
+	
 
 	document.getElementById('name').innerHtml = data.name;
 	document.getElementById('phone').textContent = data.phone;
